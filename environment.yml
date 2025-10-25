@@ -1,0 +1,26 @@
+name: mat_sci
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyter
+  - notebook
+  - ipykernel
+  - requests
+  - openai
+  - pymatgen
+  - jarvis-tools
+  - rdkit
+  - ase
+  - spglib
+  - pip
+  - pip:
+    - deepinfra
+    - materialsproject-api

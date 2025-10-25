@@ -1,0 +1,211 @@
+{
+  "band_gap": {
+    "CGCNN": {
+      "input": "CIF files in test directory with id_prop.csv and atom_init.json",
+      "command": "cd surrogate_models/cgcnn && python predict.py pre-trained/band-gap.pth.tar <input_dir>",
+      "output": "stdout with predicted band gap, saved to output_cgcnn_band_gap.txt. Exact values in test_results.csv (3rd column). Access with: awk -F',' '{print $3}' test_results.csv",
+      "tested_values": {
+        "Si": "0.386 eV",
+        "Al": "1.059 eV",
+        "Fe": "0.371 eV"
+      }
+    }
+  },
+  "bulk_modulus": {
+    "ALIGNN": {
+      "input": "POSCAR file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=\"\" && python alignn/pretrained.py --model_name jv_bulk_modulus_kv_alignn --file_format cif --file_path <path_to_structure_file>",
+      "output": "stdout with predicted value in GPa, saved to output_alignn_bulk_modulus.txt",
+      "tested_values": {
+        "Si": "9.101 GPa",
+        "Al": "38.045 GPa",
+        "Fe": "185.767 GPa"
+      }
+    }
+  },
+  "shear_modulus": {
+    "ALIGNN": {
+      "input": "POSCAR file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=\"\" && python alignn/pretrained.py --model_name jv_shear_modulus_gv_alignn --file_format cif --file_path <path_to_structure_file>",
+      "output": "stdout with predicted value in GPa, saved to output_alignn_shear_modulus.txt",
+      "tested_values": {
+        "Si": "-6.786 GPa",
+        "Al": "1.831 GPa",
+        "Fe": "22.867 GPa"
+      }
+    }
+  },
+  "poisson_ratio": {
+    "CGCNN": {
+      "input": "CIF files in test directory with id_prop.csv and atom_init.json",
+      "command": "cd surrogate_models/cgcnn && python predict.py pre-trained/poisson-ratio.pth.tar <input_dir>",
+      "output": "stdout with predicted Poisson ratio, saved to output_cgcnn_poisson_ratio.txt. Exact values in test_results.csv (3rd column). Access with: awk -F',' '{print $3}' test_results.csv",
+      "tested_values": {
+        "Si": "0.234",
+        "Al": "0.296",
+        "Fe": "0.298"
+      }
+    }
+  },
+  "dielectric_constant": {
+    "ALIGNN": {
+      "input": "POSCAR or CIF file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=\"\" && python alignn/pretrained.py --model_name jv_epsx_alignn --file_format cif --file_path <path_to_structure_file>",
+      "output": "stdout with predicted static dielectric constant component (epsx), saved to output_alignn_dielectric_constant.txt",
+      "notes": "This uses a pretrained ALIGNN model for the x-direction static dielectric constant (epsx). For approximate isotropic k, use cubic materials or average epsx/epsy/epsz if you also have jv_dfpt_epsy_alignn and jv_dfpt_epsz_alignn available: k_iso ≈ (epsx + epsy + epsz)/3.",
+      "tested_values": {
+        "Si": "≈ 12 (dimensionless)"
+      }
+    }
+  },
+  "forces": {
+    "MatGL": {
+      "input": "CIF file (properly formatted with integer occupancy values)",
+      "command": "python -c \"import matgl; from matgl.ext.ase import M3GNetCalculator; from pymatgen.core import Structure; import ase; s = Structure.from_file('<path_to_structure_file>'); atoms = ase.Atoms(symbols=[str(x) for x in s.species], positions=s.cart_coords, cell=s.lattice.matrix); model = matgl.load_model('M3GNet-MP-2021.2.8-PES'); calc = M3GNetCalculator(model); atoms.calc = calc; forces = atoms.get_forces(); print(f'MatGL Forces shape: {forces.shape}'); print(f'Forces: {forces}')\"",
+      "output": "stdout with forces array shape and values, saved to output_matgl_forces.txt",
+      "tested_values": {
+        "Si": "Forces shape: (2, 3), Forces: [[1.47, 1.47, 1.47], [-1.47, -1.47, -1.47]]"
+      }
+    }
+  },
+  "formation_energy": {
+    "ALIGNN": {
+      "input": "POSCAR file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=\"\" && python alignn/pretrained.py --model_name jv_formation_energy_peratom_alignn --file_format cif --file_path <path_to_structure_file>",
+      "output": "stdout with predicted value in eV/atom, saved to output_alignn_formation_energy_per_atom.txt",
+      "tested_values": {
+        "Si": "3.029 eV/atom",
+        "Al": "2.781 eV/atom",
+        "Fe": "0.012 eV/atom"
+      }
+    }
+  },
+    "piezoelectric_max_dielectric": {
+    "ALIGNN": {
+      "input": "POSCAR file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=\"\" && python alignn/pretrained.py --model_name jv_dfpt_piezo_max_dielectric_alignn --file_format cif --file_path <path_to_structure_file>",
+      "output": "stdout with predicted maximum piezoelectric dielectric constant, saved to output_alignn_piezo_max_dielectric.txt",
+      "tested_values": {
+        "Si": "9.508"
+      }
+    }
+  },
+  "energy_above_hull": {
+    "ALIGNN": {
+      "input": "POSCAR file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=\"\" && python alignn/pretrained.py --model_name jv_ehull_alignn --file_format cif --file_path <path_to_structure_file>",
+      "output": "stdout with predicted energy above hull in eV/atom, saved to output_alignn_energy_above_hull.txt",
+      "tested_values": {
+        "Si": "2.828 eV/atom",
+        "Al": "1.538 eV/atom",
+        "Fe": "0.009 eV/atom"
+      }
+    }
+  },
+  "stress": {
+    "MatGL": {
+      "input": "CIF file (properly formatted with integer occupancy values)",
+      "command": "python -c \"import matgl; from matgl.ext.ase import M3GNetCalculator; from pymatgen.core import Structure; import ase; s = Structure.from_file('<path_to_structure_file>'); atoms = ase.Atoms(symbols=[str(x) for x in s.species], positions=s.cart_coords, cell=s.lattice.matrix); model = matgl.load_model('M3GNet-MP-2021.2.8-PES'); calc = M3GNetCalculator(model); atoms.calc = calc; stress = atoms.get_stress(); print(f'MatGL Stress shape: {stress.shape}'); print(f'Stress: {stress}')\"",
+      "output": "stdout with stress tensor shape and values, saved to output_matgl_stress.txt",
+      "tested_values": {
+        "Si": "Stress shape: (6,), Stress: [320.22, 320.22, 320.22, 320.22, 320.22, 320.22]"
+      }
+    }
+  },
+  "structure_relaxation": {
+    "MatGL": {
+      "input": "CIF file (properly formatted with integer occupancy values)",
+      "command": "python -c \"import matgl; from matgl.ext.ase import M3GNetCalculator; from pymatgen.core import Structure; import ase; from ase.optimize import BFGS; s = Structure.from_file('<path_to_structure_file>'); atoms = ase.Atoms(symbols=[str(x) for x in s.species], positions=s.cart_coords, cell=s.lattice.matrix); model = matgl.load_model('M3GNet-MP-2021.2.8-PES'); calc = M3GNetCalculator(model); atoms.calc = calc; opt = BFGS(atoms); opt.run(fmax=0.01, steps=5); energy = atoms.get_potential_energy(); print(f'MatGL Optimized Energy: {energy:.3f} eV'); print('Optimization completed')\"",
+      "output": "stdout with optimized energy and optimization status, saved to output_matgl_optimization.txt",
+      "tested_values": {
+        "Si": "Optimized Energy: -4.804 eV (after 5 optimization steps)"
+      }
+    }
+  },
+  "total_energy": {
+    "MatGL": {
+      "input": "CIF file (properly formatted with integer occupancy values)",
+      "command": "python -c \"import matgl; from matgl.ext.ase import M3GNetCalculator; from pymatgen.core import Structure; import ase; s = Structure.from_file('<path_to_structure_file>'); atoms = ase.Atoms(symbols=[str(x) for x in s.species], positions=s.cart_coords, cell=s.lattice.matrix); model = matgl.load_model('M3GNet-MP-2021.2.8-PES'); calc = M3GNetCalculator(model); atoms.calc = calc; energy = atoms.get_potential_energy(); print(f'MatGL Total Energy: {energy:.3f} eV')\"",
+      "output": "stdout with total energy value in eV, saved to output_matgl_total_energy.txt",
+      "tested_values": {
+        "Si": "-4.838 eV",
+        "Al": "-0.141 eV",
+        "Fe": "-9.712 eV"
+      }
+    }
+  },
+  "density": {
+    "ALIGNN": {
+      "input": "CIF file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=\"\" && python -c \"from jarvis.core.atoms import Atoms; s = Atoms.from_cif('<path_to_structure_file>'); density = s.density; print(f'ALIGNN Density: {density:.3f} g/cm³')\"",
+      "output": "stdout with density value in g/cm³, saved to output_alignn_density.txt",
+      "tested_values": {
+        "Si": "2.329 g/cm³",
+        "Al": "2.700 g/cm³",
+        "Fe": "7.874 g/cm³"
+      }
+    }
+  },
+  "volume": {
+    "MatGL": {
+      "input": "CIF file (properly formatted with integer occupancy values)",
+      "command": "python -c \"import matgl; from matgl.ext.ase import M3GNetCalculator; from pymatgen.core import Structure; import ase; s = Structure.from_file('<path_to_structure_file>'); atoms = ase.Atoms(symbols=[str(x) for x in s.species], positions=s.cart_coords, cell=s.lattice.matrix); model = matgl.load_model('M3GNet-MP-2021.2.8-PES'); calc = M3GNetCalculator(model); atoms.calc = calc; volume = atoms.get_volume(); print(f'MatGL Volume: {volume:.3f} Å³')\"",
+      "output": "stdout with volume value in Å³, saved to output_matgl_volume.txt",
+      "tested_values": {
+        "Si": "40.050 Å³",
+        "Al": "16.606 Å³",
+        "Fe": "11.780 Å³"
+      }
+    }
+  },
+  "thermal_conductivity": {
+    "ALIGNN": {
+      "input": "CIF or POSCAR file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=2 && python -c \"import sys; sys.path.append('.'); from alignn.ff.ff import phonons3; from jarvis.core.atoms import Atoms; file_path='<path_to_structure_file>'; atoms = Atoms.from_cif(file_path) if file_path.endswith('.cif') else Atoms.from_poscar(file_path); model_path='/home/reddy/llema/llema/src/surrogate_models/alignn/alignn/ff/v12.2.2024_dft_3d_307k'; result=phonons3(atoms=atoms, model_path=model_path, dim=[3,3,3], distance=0.05); print(f'ALIGNN Thermal Conductivity: {result:.3f} W/m·K')\"",
+      "output": "stdout with predicted thermal conductivity in W/m·K, saved to output_alignn_thermal_conductivity.txt",
+      "tested_values": {
+        "Si": "~150 W/m·K (estimated from phonon calculation)"
+      }
+    }
+  },
+  "seebeck_coefficient": {
+    "ALIGNN": {
+      "input": "CIF file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=\"\" && python alignn/pretrained.py --model_name jv_n-Seebeck_alignn --file_format cif --file_path <path_to_structure_file>",
+      "output": "stdout with predicted Seebeck coefficient in μV/K, saved to output_alignn_seebeck_coefficient.txt",
+      "tested_values": {
+        "Si": "~-1000 μV/K (estimated)"
+      }
+    }
+  },
+  "electrical_conductivity": {
+    "ALIGNN": {
+      "input": "CIF or POSCAR file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=\"\" && python structure_to_conductivity.py <path_to_structure_file>",
+      "output": "stdout with calculated electrical conductivity in S/m (σ = Power factor / S²), saved to output_alignn_electrical_conductivity.txt",
+      "tested_values": {
+        "Si": "~1e-3 S/m (calculated from Seebeck and Power factor)"
+      }
+    }
+  },
+  "piezo_max_dielectric": {
+    "ALIGNN": {
+      "input": "POSCAR or CIF file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=\"\" && python alignn/pretrained.py --model_name jv_dfpt_piezo_max_dielectric_alignn --file_format cif --file_path <path_to_structure_file>",
+      "output": "stdout with predicted maximum piezoelectric dielectric constant (dimensionless), saved to output_alignn_piezo_max_dielectric.txt",
+      "tested_values": {
+        "Si": "≈ 9.5"
+      }
+    }
+  },
+  "piezo_max_dij": {
+    "ALIGNN": {
+      "input": "POSCAR or CIF file",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=\"\" && python alignn/pretrained.py --model_name jv_dfpt_piezo_max_dij_alignn --file_format cif --file_path <path_to_structure_file>",
+      "output": "stdout with predicted maximum piezoelectric coefficient d_ij (pC/N), saved to output_alignn_piezo_max_dij.txt",
+      "tested_values": {
+        "Si": "≈ 0.1 pC/N"
+      }
+    }
+  }
+}
