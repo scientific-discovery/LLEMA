@@ -1,4 +1,4 @@
-name: mat_sci
+name: llema
 channels:
   - conda-forge
   - defaults
