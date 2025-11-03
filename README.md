@@ -9,7 +9,7 @@ Official implementation of [“Accelerating Materials Design via LLM-Guided Evol
 
 ## 🧠 What is LLEMA?  
 
-LLEMA is a unified framework that uses large language models (LLMs) + chemistry-informed evolutionary rules + surrogate predictors to discover novel, stable, synthesizable materials faster. It tackles the challenge of balancing conflicting objectives (e.g., bandgap vs. stability, conductivity vs. transparency) by combining reasoning, evolution and prediction.
+LLEMA is a unified framework that uses large language models (LLMs) + chemistry-informed evolutionary rules + surrogate predictors to discover novel, stable, synthesizable materials faster. It tackles the challenge of balancing conflicting objectives (e.g., bandgap vs. stability, conductivity vs. transparency) by combining reasoning, evolution, and prediction.
 
 ---
 
@@ -17,9 +17,8 @@ LLEMA is a unified framework that uses large language models (LLMs) + chemistry-
 - LLM-driven candidate generation under property constraints  
 - Evolutionary memory loop with chemistry-informed operators  
 - Multi-objective optimization using surrogate models  
-- Benchmark suite of **14 materials discovery tasks** across electronics, energy and optics  
-- Empirical results: higher hit rates, stronger Pareto fronts, broader diversity, out-performing CDVAE, G-SchNet, DiffCSP and LLMatDesign  
-
+- Benchmark suite of **14 materials discovery tasks** across electronics, energy, aerospace, coatings, and optics  
+- Empirical results: higher hit rates, stronger Pareto fronts, and broader diversity.
 ---
 
 ## 🔧 Getting Started
@@ -47,8 +46,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-If you plan to modify or run surrogate models locally, also clone their repos (see below). Otherwise, LLEMA can download the required pretrained weights on demand for ALIGNN.
-
+To run surrogate models locally, clone their repos (see below).
 ---
 
 ## API Keys and Configuration
@@ -84,11 +82,9 @@ LLEMA integrates fast surrogate models to estimate materials properties during t
 
 ### ALIGNN (Atomistic Line Graph Neural Network)
 
-- Pretrained models from JARVIS-DFT are automatically fetched when needed.
-- Downloads are stored under `src/surrogate_models/alignn/alignn/` as `.zip` archives.
+- Pretrained models from JARVIS-DFT are to be downloaded and stored under `src/surrogate_models/alignn/alignn/` as `.zip` archives.
 - For details on which archives are included and local customizations, see `src/surrogate_models/README.md`.
 
-Clone (optional, for local development or customization):
 ```bash
 cd src/surrogate_models
 git clone https://github.com/usnistgov/alignn.git
@@ -99,7 +95,6 @@ git clone https://github.com/usnistgov/alignn.git
 - CGCNN can be used as an alternative or complementary surrogate.
 - LLEMA includes minor output-format changes for clearer, property-specific CLI output.
 
-Clone (optional, for local development or customization):
 ```bash
 cd src/surrogate_models
 git clone https://github.com/txie-93/cgcnn.git
