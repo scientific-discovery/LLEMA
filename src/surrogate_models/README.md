@@ -31,8 +31,6 @@ Pretrained ALIGNN models are stored at:
 - jv_optb88vdw_bandgap_alignn.zip
 - jv_shear_modulus_gv_alignn.zip
 
----
-
 ### Modifications to `pretrained.py` for LLEMA
 
 The main script uses a generic output format: `"Predicted value: <model_name> <file_path> <values>"` instead of model-specific formatted outputs. The `pretrained.py` file has been modified to include property-specific formatted print statements for better readability when using the CLI. The changes include:
