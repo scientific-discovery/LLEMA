@@ -11,15 +11,12 @@ Official implementation of [“Accelerating Materials Design via LLM-Guided Evol
 
 LLEMA is a unified framework that uses large language models (LLMs) + chemistry-informed evolutionary rules + surrogate predictors to discover novel, stable, synthesizable materials faster. It tackles the challenge of balancing conflicting objectives (e.g., bandgap vs. stability, conductivity vs. transparency) by combining reasoning, evolution, and prediction.
 
----
-
 ## 🚀 Key Contributions  
 - LLM-driven candidate generation under property constraints  
 - Evolutionary memory loop with chemistry-informed operators  
 - Multi-objective optimization using surrogate models  
 - Benchmark suite of **14 materials discovery tasks** across electronics, energy, aerospace, coatings, and optics  
 - Empirical results: higher hit rates, stronger Pareto fronts, and broader diversity.
----
 
 ## 🔧 Getting Started
 
@@ -47,7 +44,6 @@ pip install -r requirements.txt
 ```
 
 To run surrogate models locally, clone their repos (see below).
----
 
 ## API Keys and Configuration
 
@@ -74,8 +70,6 @@ export OPENAI_API_KEY=...
 export MATERIALS_PROJECT_API_KEY=...
 ```
 
----
-
 ## Surrogate Models
 
 LLEMA integrates fast surrogate models to estimate materials properties during the search loop.
@@ -101,8 +95,6 @@ git clone https://github.com/txie-93/cgcnn.git
 ```
 
 See `src/surrogate_models/README.md` for more details on supported properties and output formats.
-
----
 
 ## ⚙️ Quick Start
 
