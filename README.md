@@ -4,8 +4,8 @@
 Accelerating materials design via LLM-guided evolutionary search.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)  
-[![arXiv](https://img.shields.io/badge/arXiv-2510.22503-cs.LG-blue.svg)](https://arxiv.org/abs/2510.22503)  
-[![Hugging Face Paper](https://img.shields.io/badge/HuggingFace-Paper-green.svg)](https://huggingface.co/papers/2510.22503)
+[![arXiv](https://img.shields.io/badge/arXiv-2510.22503-cs.LG-red.svg)](https://arxiv.org/abs/2510.22503)  
+[![Hugging Face Paper](https://img.shields.io/badge/HuggingFace-Paper-yellow.svg)](https://huggingface.co/papers/2510.22503)
 
 Official implementation of [“Accelerating Materials Design via LLM-Guided Evolutionary Search,” arXiv:2510.22503](https://arxiv.org/abs/2510.22503)
 
