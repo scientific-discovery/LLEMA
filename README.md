@@ -70,6 +70,8 @@ export OPENAI_API_KEY=...
 export MATERIALS_PROJECT_API_KEY=...
 ```
 
+**Note:** The `src/agent/config.py` file contains run-specific information such as iteration limits, memory settings, and multi-island configuration parameters.
+
 ## Surrogate Models
 
 LLEMA integrates fast surrogate models to estimate materials properties during the search loop.

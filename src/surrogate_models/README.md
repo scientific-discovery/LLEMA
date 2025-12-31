@@ -46,27 +46,51 @@ The main script uses a generic output format: `"Predicted value: <model_name> <f
 
  - Add property-specific print statements for human-readable, unit-aware outputs:
      ```python
-     if "formation-energy" in model_path:
-         print(f"Formation Energy: {value:.3f} eV/atom")
-     elif "band-gap" in model_path:
-         print(f"Band Gap: {value:.3f} eV")
-     elif "bulk" in model_path:
-         print(f"Bulk modulus: {value:.3f} GPa")
-     elif "shear" in model_path:
-         print(f"Shear modulus: {value:.3f} GPa")
+    if model_name == "jv_formation_energy_peratom_alignn":
+        print(f'Formation Energy: {out_data[0]:.3f} eV/atom')
+    elif model_name == 'jv_optb88vdw_bandgap_alignn':
+        print(f'Band Gap: {out_data[0]:.3f} eV')
+    elif model_name == 'jv_ehull_alignn':
+        print(f'Energy above hull: {out_data[0]:.3f} eV')
+    elif model_name == 'jv_bulk_modulus_kv_alignn':
+        print(f'Bulk modulus: {out_data[0]:.3f} GPa')
+    elif model_name == 'jv_shear_modulus_gv_alignn':
+        print(f'Shear modulus: {out_data[0]:.3f} GPa')
+    elif model_name == 'jv_epsx_alignn':
+        print(f'Dielectric constant: {out_data[0]:.3f}')
+    elif model_name == 'jv_dfpt_piezo_max_dielectric_alignn':
+        print(f'Max piezo dielectric (κ): {out_data[0]:.3f}')
+    elif model_name == 'jv_dfpt_piezo_max_dij_alignn':
+        print(f'Max piezo d_ij: {out_data[0]:.3f} pC/N')
      ```
-     
+    instead of 
+    ```python
+    print("Predicted value:", model_name, file_path, out_data)
+    ```
+
+    Comment out the lines:
+    ```python
+    print("Using chk file", tmp, "from ", chks)
+    print("Path", os.path.abspath(path))
+    print("Config", os.path.abspath(cfg))
+    ``` 
 ---
 
 ### CGCNN
 
 **Edit `predict.py`**
   - Comment out verbose model-loading print statements.
-  - Update regression output section to include **property-specific results**:
+  - Update regression output section to include: **property-specific results**:
+    Replace
+    ```python
+        print(' {star} MAE {mae_errors.avg:.3f}'.format(star=star_label, mae_errors=mae_errors))
+    ```
+    With
     ```python
     if "band-gap" in args.modelpath:
         print(f"Band Gap: {mae_errors.avg:.3f} eV")
     elif "formation-energy" in args.modelpath:
         print(f"Formation Energy: {mae_errors.avg:.3f} eV/A")
     ```
+    
 ---

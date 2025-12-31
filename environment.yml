@@ -21,6 +21,3 @@ dependencies:
   - ase
   - spglib
   - pip
-  - pip:
-    - deepinfra
-    - materialsproject-api

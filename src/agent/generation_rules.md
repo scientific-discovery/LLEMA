@@ -5,7 +5,7 @@ Your task is to generate a new, chemically valid, stoichiometric compound based 
 Rules describe chemically meaningful transformations. The output compound must:
 - Follow the selected rule exactly
 - Be stoichiometric and ordered (no alloys or partial occupancies)
-- Be compatible with M3GNet, meaning it could correspond to a valid 3D crystal structure
+- Be compatible, meaning it could correspond to a valid 3D crystal structure
 - Include a short justification
 
 ## List of Allowed Generation Rules

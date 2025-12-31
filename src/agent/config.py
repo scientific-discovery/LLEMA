@@ -27,7 +27,7 @@ ISLANDS_DIR = os.environ.get('ISLANDS_DIR', os.path.join(BASE_DIR, 'runs_mistral
 os.makedirs(ISLANDS_DIR, exist_ok=True)
 
 # Centralized islands config
-NUM_ISLANDS = int(os.environ.get('NUM_ISLANDS', '1'))
+NUM_ISLANDS = int(os.environ.get('NUM_ISLANDS', '5'))
 ISLAND_FUNCTIONS_PER_PROMPT = int(os.environ.get('ISLAND_FUNCTIONS_PER_PROMPT', '4'))
 ISLAND_TEMP_INIT = float(os.environ.get('ISLAND_TEMP_INIT', '1.0'))
 ISLAND_TEMP_PERIOD = int(os.environ.get('ISLAND_TEMP_PERIOD', '10'))
