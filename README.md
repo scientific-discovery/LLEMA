@@ -5,7 +5,7 @@ Accelerating materials design via LLM-guided evolutionary search.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![arXiv](https://img.shields.io/badge/arXiv-2510.22503-b31b1b.svg)](https://arxiv.org/abs/2510.22503) [![Hugging Face Paper](https://img.shields.io/badge/HuggingFace-Paper-yellow.svg)](https://huggingface.co/papers/2510.22503) [![Hugging Face Dataset](https://img.shields.io/badge/HuggingFace-Dataset-blue.svg)](https://huggingface.co/datasets/nikhilsa/LLEMABench)
 
-Official implementation of [“Accelerating Materials Design via LLM-Guided Evolutionary Search,” arXiv:2510.22503](https://arxiv.org/abs/2510.22503)
+Official implementation of [“Accelerating Materials Design via LLM-Guided Evolutionary Search”](https://arxiv.org/abs/2510.22503)
 
 ## 🧠 What is LLEMA?  
 
