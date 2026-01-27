@@ -108,9 +108,9 @@ bash run_all_tasks.sh
 
 ## 📚 Citation
 ```
-@article{Abhyankar2025LLEMA,
+@article{abhyankar2025accelerating,
   title={Accelerating Materials Design via LLM-Guided Evolutionary Search},
-  author={Abhyankar, Nikhil and Kabra, Sanchit and Desai, Saaketh and Reddy, Chandan K.},
+  author={Abhyankar, Nikhil and Kabra, Sanchit and Desai, Saaketh and Reddy, Chandan K},
   journal={arXiv preprint arXiv:2510.22503},
   year={2025}
 }
