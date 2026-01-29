@@ -108,11 +108,12 @@ bash run_all_tasks.sh
 
 ## 📚 Citation
 ```
-@article{abhyankar2025accelerating,
-  title={Accelerating Materials Design via LLM-Guided Evolutionary Search},
-  author={Abhyankar, Nikhil and Kabra, Sanchit and Desai, Saaketh and Reddy, Chandan K},
-  journal={arXiv preprint arXiv:2510.22503},
-  year={2025}
+@inproceedings{abhyankar2026llema,
+        title={LLEMA: Accelerating Materials Design via {LLM}-Guided Evolutionary Search},
+        author={Abhyankar, Nikhil and Kabra, Sanchit and Desai, Saaketh and Reddy, Chandan K},
+        booktitle={The Fourteenth International Conference on Learning Representations (ICLR)},
+        year={2026},
+        url={https://openreview.net/forum?id=TIqzhBvCNB}
 }
 ```
 ## 📄 License
