@@ -760,10 +760,9 @@ def main():
             property_calculation_result = calculate_all_properties(cif_file, cif_data, tasks_to_process)
             
             if not property_calculation_result['property_values']:
-                print(f"[Main] No properties calculated for {cif_file}, skipping...")
-                continue
+                print(f"[Main] No properties calculated for {cif_file}, but will still check constraints...")
             
-            # Check constraints for each task
+            # Check constraints for each task (even if no properties were calculated)
             for task_name in tasks_to_process:
                 try:
                     result = check_constraints_for_task(cif_data, property_calculation_result, task_name)
