@@ -629,7 +629,7 @@ Examples:
     
     parser.add_argument(
         '--cif-dir',
-        default="./example_cif",
+        default="example",
         help='Directory containing CIF files to process (default: %(default)s)'
     )
     
