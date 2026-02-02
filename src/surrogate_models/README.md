@@ -14,7 +14,7 @@ It integrates pretrained models available on the **JARVIS-DFT dataset** hosted o
 
 ### Directory Structure
 
-Pretrained ALIGNN models are stored at:
+Pretrained ALIGNN models are to be stored at:
 `src/surrogate_models/alignn/alignn/`
 
 **Saved files:**
