@@ -106,6 +106,71 @@ cd src
 bash run_all_tasks.sh
 ```
 
+## 📊 Evaluation
+
+LLEMA provides tools to evaluate CIF files for validity (property constraints) and stability analysis on the taks in LLEMABench. This section describes how to use these evaluation scripts.
+
+### Validity Analysis
+
+The `calculate_validity.py` script evaluates CIF files against task-specific property constraints to determine if they meet the requirements for a given materials discovery task.
+
+**Usage:**
+```bash
+cd src
+conda activate llema  # Ensure the mat_sci environment is activated
+python calculate_validity.py --tasks <task_name> [options]
+```
+
+**Examples:**
+```bash
+# Evaluate CIF files for a specific task
+python calculate_validity.py --tasks "Hard, Stiff Ceramics"
+
+# Evaluate for all available tasks
+python calculate_validity.py --tasks all
+```
+
+**Arguments:**
+- `--tasks`: Task name(s) to evaluate. Use `"all"` to process all tasks, or specify one or more task names.
+- `--cif-dir`: Directory containing CIF files to process (default: `example`)
+- `--output-dir`: Output directory for results (default: auto-generated with timestamp in `validity_output/`)
+
+**Output:**
+- Results are saved in `validity_output/property_output_<timestamp>/` directory
+- Each task generates a `results_<task_name>.jsonl` file containing:
+  - Compound formula
+  - Calculated property values (band gap, formation energy, bulk modulus, etc.)
+  - Categorical constraint results (earth_abundant, non_toxic, etc.)
+  - Successful and failed constraint checks
+  - Materials API usage flag
+
+### Stability Analysis
+
+The `calculate_stability.py` script analyzes the thermodynamic stability of candidates from validity analysis results by calculating energy above hull and formation energy.
+
+**Usage:**
+```bash
+cd src
+conda activate llema  # Ensure the mat_sci environment is activated
+python calculate_stability.py --task <task_name> [options]
+```
+
+**Arguments:**
+- `--task` or `-t`: Specific task name to analyze (required)
+- `--max-samples` or `-n`: Maximum number of samples to process per task
+- `--quiet` or `-q`: Reduce output verbosity (only show summary statistics)
+- `--output-dir`: Specific validity output directory to process (default: latest)
+
+**Output:**
+- Summary statistics are saved in `stability_output/stability_summary_<timestamp>.json`
+- The JSON file contains:
+  - Overall statistics: total candidates, valid/invalid counts, stability breakdown (stable/marginally stable/unstable/unknown)
+  - Task-specific breakdown with detailed statistics
+  - Energy above hull calculation success rates
+  - Materials API and surrogate model usage statistics
+
+**Note:** The stability analysis script automatically searches for results in `validity_output/property_output_*` directories and maps CIF files from the `example` directory (or the directory specified during validity analysis).
+
 ## 📚 Citation
 ```
 @inproceedings{abhyankar2026llema,
