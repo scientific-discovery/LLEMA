@@ -2,7 +2,19 @@ import json
 import os
 import subprocess
 import tempfile
-from config import MODEL_LOOKUP_PATH, CGCNN_DIR, ALIGNN_DIR
+import sys
+
+# Add agent directory to path if not already there
+agent_dir = os.path.dirname(os.path.abspath(__file__))
+if agent_dir not in sys.path:
+    sys.path.insert(0, agent_dir)
+
+# Import config from the agent package
+try:
+    from agent.config import MODEL_LOOKUP_PATH, CGCNN_DIR, ALIGNN_DIR
+except ImportError:
+    # Fallback: try importing config directly if agent package path doesn't work
+    from config import MODEL_LOOKUP_PATH, CGCNN_DIR, ALIGNN_DIR
 
 with open(MODEL_LOOKUP_PATH, 'r') as f:
     MODEL_LOOKUP = json.load(f)

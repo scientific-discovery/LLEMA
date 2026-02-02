@@ -649,9 +649,6 @@ Examples:
   
   # Process with custom CIF directory
   python scoring.py --tasks all --cif-dir /path/to/cif/files
-  
-  # Limit number of files
-  python scoring.py --tasks all --max-files 10
         """
     )
     
@@ -671,12 +668,6 @@ Examples:
     parser.add_argument(
         '--output-dir',
         help='Output directory for results (default: auto-generated with timestamp)'
-    )
-    
-    parser.add_argument(
-        '--max-files',
-        type=int,
-        help='Maximum number of CIF files to process (for testing)'
     )
     
     return parser.parse_args()
@@ -732,11 +723,6 @@ def main():
     if not cif_files:
         print("[Main] No CIF files found!")
         return
-    
-    # Limit files if max-files is specified
-    if args.max_files and args.max_files < len(cif_files):
-        cif_files = cif_files[:args.max_files]
-        print(f"[Main] Limited to first {len(cif_files)} files (--max-files={args.max_files})")
     
     # Process each task separately
     task_results = {task: [] for task in tasks_to_process}
