@@ -151,9 +151,6 @@ temp_parallel_runs/
 
 # Surrogate model outputs
 
-# CIF files (generated during runs)
-*.cif
-
 # Conda environments
 .conda/
 

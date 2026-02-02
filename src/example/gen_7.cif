@@ -1,0 +1,29 @@
+data_image0
+_chemical_formula_structural       KAuGeK
+_chemical_formula_sum              "K2 Au1 Ge1"
+_cell_length_a       4.531043867723715
+_cell_length_b       5.400250195784077
+_cell_length_c       6.420470714569092
+_cell_angle_alpha    115.1208560052414
+_cell_angle_beta     89.93719208054449
+_cell_angle_gamma    89.96092016572635
+
+_space_group_name_H-M_alt    "P 1"
+_space_group_IT_number       1
+
+loop_
+  _space_group_symop_operation_xyz
+  'x, y, z'
+
+loop_
+  _atom_site_type_symbol
+  _atom_site_label
+  _atom_site_symmetry_multiplicity
+  _atom_site_fract_x
+  _atom_site_fract_y
+  _atom_site_fract_z
+  _atom_site_occupancy
+  K   K1        1.0  0.8805414438247681  0.6074325442314148  0.4930983781814575  1.0000
+  Au  Au1       1.0  0.38076430559158325  0.2127188891172409  0.7052743434906006  1.0000
+  Ge  Ge1       1.0  0.8810521364212036  0.30066147446632385  0.8840672373771667  1.0000
+  K   K2        1.0  0.38057273626327515  0.9078403115272522  0.09736745059490204  1.0000

@@ -1,0 +1,33 @@
+data_image0
+_chemical_formula_structural       BiPrBiPbPrBiPb2
+_chemical_formula_sum              "Bi3 Pr2 Pb3"
+_cell_length_a       4.660282414391767
+_cell_length_b       4.700213820783104
+_cell_length_c       11.32199478149414
+_cell_angle_alpha    90.04329907495743
+_cell_angle_beta     90.05550462513047
+_cell_angle_gamma    90.12330791129321
+
+_space_group_name_H-M_alt    "P 1"
+_space_group_IT_number       1
+
+loop_
+  _space_group_symop_operation_xyz
+  'x, y, z'
+
+loop_
+  _atom_site_type_symbol
+  _atom_site_label
+  _atom_site_symmetry_multiplicity
+  _atom_site_fract_x
+  _atom_site_fract_y
+  _atom_site_fract_z
+  _atom_site_occupancy
+  Bi  Bi1       1.0  0.8789207339286804  0.2239641398191452  0.8589169979095459  1.0000
+  Pr  Pr1       1.0  0.879560112953186  0.7239229083061218  0.6245973110198975  1.0000
+  Bi  Bi2       1.0  0.3787887990474701  0.7241387367248535  0.8589908480644226  1.0000
+  Pb  Pb1       1.0  0.8796828389167786  0.7241073250770569  0.11893793940544127  1.0000
+  Pr  Pr2       1.0  0.37919190526008606  0.2242663949728012  0.08663507550954819  1.0000
+  Bi  Bi3       1.0  0.37915894389152527  0.22361835837364194  0.5903317332267761  1.0000
+  Pb  Pb2       1.0  0.3789544701576233  0.7241274118423462  0.35232558846473694  1.0000
+  Pb  Pb3       1.0  0.8790268301963806  0.22383788228034976  0.35138046741485596  1.0000
