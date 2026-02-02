@@ -7,7 +7,11 @@ set -e  # Exit on any error
 
 ## Activate conda environment 'mat_sci'
 if command -v conda >/dev/null 2>&1; then
-    eval "$(/home/reddy/miniconda3/bin/conda shell.bash hook)"
+    # Use conda from PATH or try common locations
+    if [ -z "$CONDA_HOME" ]; then
+        CONDA_HOME=$(dirname $(dirname $(which conda)))
+    fi
+    eval "$(${CONDA_HOME}/bin/conda shell.bash hook)"
     conda activate mat_sci
 else
     echo "conda not found in PATH. Please install or load conda and retry." >&2

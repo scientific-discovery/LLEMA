@@ -161,7 +161,7 @@
   "thermal_conductivity": {
     "ALIGNN": {
       "input": "CIF or POSCAR file",
-      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=2 && python -c \"import sys; sys.path.append('.'); from alignn.ff.ff import phonons3; from jarvis.core.atoms import Atoms; file_path='<path_to_structure_file>'; atoms = Atoms.from_cif(file_path) if file_path.endswith('.cif') else Atoms.from_poscar(file_path); model_path='/home/reddy/llema/llema/src/surrogate_models/alignn/alignn/ff/v12.2.2024_dft_3d_307k'; result=phonons3(atoms=atoms, model_path=model_path, dim=[3,3,3], distance=0.05); print(f'ALIGNN Thermal Conductivity: {result:.3f} W/m·K')\"",
+      "command": "cd surrogate_models/alignn && export CUDA_VISIBLE_DEVICES=2 && python -c \"import sys; import os; sys.path.append('.'); from alignn.ff.ff import phonons3; from jarvis.core.atoms import Atoms; file_path='<path_to_structure_file>'; atoms = Atoms.from_cif(file_path) if file_path.endswith('.cif') else Atoms.from_poscar(file_path); model_path=os.path.join(os.getcwd(), 'alignn', 'ff', 'v12.2.2024_dft_3d_307k'); result=phonons3(atoms=atoms, model_path=model_path, dim=[3,3,3], distance=0.05); print(f'ALIGNN Thermal Conductivity: {result:.3f} W/m·K')\"",
       "output": "stdout with predicted thermal conductivity in W/m·K, saved to output_alignn_thermal_conductivity.txt",
       "tested_values": {
         "Si": "~150 W/m·K (estimated from phonon calculation)"
