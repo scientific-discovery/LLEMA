@@ -9,15 +9,15 @@ with open(MODEL_LOOKUP_PATH, 'r') as f:
 
 # Map task names to property names (only using available CGCNN models)
 TASK_TO_PROPERTY_MAP = {
-    "Stable Wide-Bandgap Semiconductors": ["band_gap", "formation_energy", "energy_above_hull"],
+    "Stable Wide-Bandgap Semiconductors": ["band_gap", "formation_energy"],
     "Photovoltaic Absorbers": ["band_gap", "formation_energy"],
     "Hard Coating Materials": ["bulk_modulus", "formation_energy", "band_gap"],
     "Transparent Conductors": ["band_gap", "electrical_conductivity"],
     "Structural Materials for Aerospace": ["density", "bulk_modulus", "shear_modulus"],
     "Low_Density_Structural_Aerospace": ["density", "shear_modulus"],
     "Thermoelectric Candidates (n-type or p-type)": ["thermal_conductivity", "formation_energy", "seebeck_coefficient", "band_gap"],
-    "Electrically Insulating Dielectrics": ["band_gap", "dielectric_constant", "energy_above_hull"],
-    "Solid-State Electrolytes": ["formation_energy", "band_gap", "energy_above_hull"],
+    "Electrically Insulating Dielectrics": ["band_gap", "dielectric_constant"],
+    "Solid-State Electrolytes": ["formation_energy", "band_gap"],
     "Hard, Stiff Ceramics": ["bulk_modulus", "shear_modulus"],
     "High-k Dielectrics": ["dielectric_constant", "band_gap"],
     "SAW/BAW Acoustic Substrates": ["shear_modulus", "dielectric_constant"],

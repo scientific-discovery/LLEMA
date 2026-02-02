@@ -31,22 +31,22 @@ import property_extractor
 
 # Map task names to property names
 TASK_TO_PROPERTY_MAP = {
-    "Stable Wide-Bandgap Semiconductors": ["band_gap", "formation_energy", "energy_above_hull"],
-    "Photovoltaic Absorbers": ["band_gap", "formation_energy", "energy_above_hull"],
-    "Hard Coating Materials": ["bulk_modulus", "formation_energy", "band_gap", "energy_above_hull"],
-    "Transparent Conductors": ["band_gap", "electrical_conductivity", "energy_above_hull"],
-    "Structural Materials for Aerospace": ["bulk_modulus", "shear_modulus" , "density", "energy_above_hull"],
-    "Thermoelectric Candidates (n-type or p-type)": ["seebeck_coefficient", "thermal_conductivity", "band_gap", "formation_energy", "energy_above_hull"],
-    "Electrically Insulating Dielectrics": ["band_gap", "dielectric_constant", "energy_above_hull"],
-    "Solid-State Electrolytes": ["formation_energy", "energy_above_hull", "band_gap"],
-    "Hard, Stiff Ceramics": ["bulk_modulus", "shear_modulus", "energy_above_hull"],
-    "High-k Dielectrics": ["dielectric_constant", "band_gap", "energy_above_hull"],
-    "SAW/BAW Acoustic Substrates": ["shear_modulus", "dielectric_constant", "energy_above_hull"],
-    "Piezo Energy Harvesters": ["piezo_max_dij", "piezo_max_dielectric", "energy_above_hull"],
-    "Piezoelectric Sensors / Actuators": ["piezo_max_dij", "piezo_max_dielectric", "energy_above_hull"],
-    "Acousto-optic Hybrids": ["piezo_max_dij", "piezo_max_dielectric", "energy_above_hull"],
-    "Low_Density_Structural_Aerospace": ["density", "shear_modulus", "energy_above_hull"],
-    "Toxic_Free_Perovskite_Oxide": ["band_gap", "bulk_modulus", "energy_above_hull"]
+    "Stable Wide-Bandgap Semiconductors": ["band_gap", "formation_energy"],
+    "Photovoltaic Absorbers": ["band_gap", "formation_energy"],
+    "Hard Coating Materials": ["bulk_modulus", "formation_energy", "band_gap"],
+    "Transparent Conductors": ["band_gap", "electrical_conductivity"],
+    "Structural Materials for Aerospace": ["bulk_modulus", "shear_modulus" , "density"],
+    "Thermoelectric Candidates (n-type or p-type)": ["seebeck_coefficient", "thermal_conductivity", "band_gap", "formation_energy"],
+    "Electrically Insulating Dielectrics": ["band_gap", "dielectric_constant"],
+    "Solid-State Electrolytes": ["formation_energy", "band_gap"],
+    "Hard, Stiff Ceramics": ["bulk_modulus", "shear_modulus"],
+    "High-k Dielectrics": ["dielectric_constant", "band_gap"],
+    "SAW/BAW Acoustic Substrates": ["shear_modulus", "dielectric_constant"],
+    "Piezo Energy Harvesters": ["piezo_max_dij", "piezo_max_dielectric"],
+    "Piezoelectric Sensors / Actuators": ["piezo_max_dij", "piezo_max_dielectric"],
+    "Acousto-optic Hybrids": ["piezo_max_dij", "piezo_max_dielectric"],
+    "Low_Density_Structural_Aerospace": ["density", "shear_modulus"],
+    "Toxic_Free_Perovskite_Oxide": ["band_gap", "bulk_modulus"]
 }
 
 METRIC_TO_PROPERTY_MAP = {
@@ -315,29 +315,17 @@ TASK_CONSTRAINTS = {
         "numeric": [
             ("band_gap", ">=", 2.5),
             ("formation_energy", "<=", -1.0),
-            ("energy_above_hull", "<=", 2.0),
-        ]
-    },
-    "Thermoelectric Candidates (n-type or p-type)": {
-        "numeric": [
-            ("seebeck_coefficient", ">=", 80),          # Seebeck coefficient in μV·K⁻¹ (higher is better)
-            ("thermal_conductivity", "<=", 3.0),         # thermal conductivity in W·m⁻¹·K⁻¹ (lower is better)
-            ("band_gap", "in", (0.1, 1.75)),            # band gap in eV
-            ("formation_energy", "<=", 0.0),            # formation energy in eV·atom⁻¹
-            ("energy_above_hull", "<=", 2.0),
         ]
     },
     "Electrically Insulating Dielectrics": {
         "numeric": [
             ("band_gap", ">=", 2.5),
             ("dielectric_constant", ">=", 8.0),
-            ("energy_above_hull", "<=", 2.0),
         ]
     },
     "Solid-State Electrolytes": {
         "numeric": [
             ("formation_energy", "<=", -1.0),
-            ("energy_above_hull", "<=", 2.0),
             ("band_gap", ">=", 2.0),
         ],
         "categorical": {"requires_any_element": [["Li"], ["Na"], ["K"], ["Mg"], ["Ca"], ["Al"]]},
@@ -346,7 +334,6 @@ TASK_CONSTRAINTS = {
         "numeric": [
             ("band_gap", "in", (0.7, 2.0)),
             ("formation_energy", "<=", 0.0),
-            ("energy_above_hull", "<=", 2.0),
         ],
         "categorical": {"earth_abundant": True, "non_toxic": True},
     },
@@ -355,14 +342,12 @@ TASK_CONSTRAINTS = {
             ("bulk_modulus", ">=", 200.0),
             ("formation_energy", "<=", -1.0),
             ("band_gap", ">=", 3.0),
-            ("energy_above_hull", "<=", 2.0),
         ]
     },
     "Transparent Conductors": {
         "numeric": [
             ("band_gap", ">=", 1.5),
             ("electrical_conductivity", "in", (500, 30000)),  # conductivity in S/m (500-15,000 S/m)
-            ("energy_above_hull", "<=", 5.0),
         ]
     },
     "Structural Materials for Aerospace": {
@@ -370,63 +355,54 @@ TASK_CONSTRAINTS = {
             ("density", "<=", 5.0),
             ("bulk_modulus", ">=", 100.0),
             ("shear_modulus", ">=", 40.0),
-            ("energy_above_hull", "<=", 2.0),
         ]
     },
     "Hard, Stiff Ceramics": {
         "numeric": [
             ("bulk_modulus", "in", (100.0, 300.0)),
             ("shear_modulus", "in", (60.0, 200.0)),
-            ("energy_above_hull", "<=", 2.0),
         ]
     },
     "High-k Dielectrics": {
         "numeric": [
             ("dielectric_constant", "in", (10.0, 90.0)),
             ("band_gap", "in", (2.5, 6.5)),
-            ("energy_above_hull", "<=", 2.0),
         ]
     },
     "SAW/BAW Acoustic Substrates": {
         "numeric": [
             ("shear_modulus", "in", (25.0, 150.0)),
             ("dielectric_constant", "in", (3.7, 95.0)),
-            ("energy_above_hull", "<=", 2.0),
         ]
     },
     "Piezo Energy Harvesters": {
         "numeric": [
             ("piezo_max_dij", ">=", 8.0),
             ("piezo_max_dielectric", "in", (10.0, 8000.0)),
-            ("energy_above_hull", "<=", 2.0),
         ]
     },
     "Piezoelectric Sensors / Actuators": {
         "numeric": [
             ("piezo_max_dij", ">=", 80.0),
             ("piezo_max_dielectric", ">=", 250.0),
-            ("energy_above_hull", "<=", 2.0),
         ]
     },
     "Acousto-optic Hybrids": {
         "numeric": [
             ("piezo_max_dij", "in", (2.0, 9.0)),
             ("piezo_max_dielectric", "in", (8.0, 95.0)),
-            ("energy_above_hull", "<=", 2.0),
         ]
     },
     "Low_Density_Structural_Aerospace": {
         "numeric": [
             ("density", "<=", 3.5),                      # density in g/cm³
             ("shear_modulus", "in", (65.0, 195.0)),      # shear modulus in GPa
-            ("energy_above_hull", "<=", 2.0),
         ]
     },
     "Toxic_Free_Perovskite_Oxide": {
         "numeric": [
             ("band_gap", ">=", 2.0),                     # band gap in eV
             ("bulk_modulus", "in", (90.0, 135.0)),       # bulk modulus in GPa
-            ("energy_above_hull", "<=", 2.0),
         ],
         "categorical": {"earth_abundant": True, "non_toxic": True},
     },
@@ -440,22 +416,21 @@ TARGET_OVERRIDES = {
 }
 
 TASK_OBJECTIVES = {
-    "Stable Wide-Bandgap Semiconductors": {"lower": ["formation_energy", "energy_above_hull"], "higher": ["band_gap"]},
-    "Thermoelectric Candidates (n-type or p-type)": {"lower": ["thermal_conductivity", "formation_energy", "energy_above_hull"], "higher": ["seebeck_coefficient"]},
-    "Electrically Insulating Dielectrics": {"lower": ["energy_above_hull"], "higher": ["band_gap", "dielectric_constant"]},
-    "Solid-State Electrolytes": {"lower": ["formation_energy", "energy_above_hull"], "higher": ["band_gap"]},
-    "Photovoltaic Absorbers": {"lower": ["formation_energy", "energy_above_hull"], "higher": ["band_gap"]},
-    "Hard Coating Materials": {"lower": ["formation_energy", "energy_above_hull"], "higher": ["bulk_modulus", "band_gap"]},
-    "Transparent Conductors": {"lower": ["energy_above_hull"], "higher": ["band_gap", "electrical_conductivity"]},
-    "Structural Materials for Aerospace": {"lower": ["density", "energy_above_hull"], "higher": ["bulk_modulus", "shear_modulus"]},
-    "Hard, Stiff Ceramics": {"lower": ["energy_above_hull"], "higher": ["bulk_modulus", "shear_modulus"]},
-    "High-k Dielectrics": {"lower": ["energy_above_hull"], "higher": ["dielectric_constant", "band_gap"]},
-    "SAW/BAW Acoustic Substrates": {"lower": ["energy_above_hull"], "higher": ["shear_modulus", "dielectric_constant"]},
-    "Piezo Energy Harvesters": {"lower": ["energy_above_hull", "piezo_max_dielectric"], "higher": ["piezo_max_dij"]},
-    "Piezoelectric Sensors / Actuators": {"lower": ["energy_above_hull"], "higher": ["piezo_max_dij", "piezo_max_dielectric"]},
-    "Acousto-optic Hybrids": {"lower": ["energy_above_hull", "piezo_max_dielectric"], "higher": ["piezo_max_dij"]},
-    "Low_Density_Structural_Aerospace": {"lower": ["density", "energy_above_hull"], "higher": ["shear_modulus"]},
-    "Toxic_Free_Perovskite_Oxide": {"lower": ["energy_above_hull"], "higher": ["band_gap", "bulk_modulus"]},
+    "Stable Wide-Bandgap Semiconductors": {"lower": ["formation_energy"], "higher": ["band_gap"]},
+    "Electrically Insulating Dielectrics": {"higher": ["band_gap", "dielectric_constant"]},
+    "Solid-State Electrolytes": {"lower": ["formation_energy"], "higher": ["band_gap"]},
+    "Photovoltaic Absorbers": {"lower": ["formation_energy"], "higher": ["band_gap"]},
+    "Hard Coating Materials": {"lower": ["formation_energy"], "higher": ["bulk_modulus", "band_gap"]},
+    "Transparent Conductors": {"higher": ["band_gap", "electrical_conductivity"]},
+    "Structural Materials for Aerospace": {"lower": ["density"], "higher": ["bulk_modulus", "shear_modulus"]},
+    "Hard, Stiff Ceramics": {"higher": ["bulk_modulus", "shear_modulus"]},
+    "High-k Dielectrics": {"higher": ["dielectric_constant", "band_gap"]},
+    "SAW/BAW Acoustic Substrates": {"higher": ["shear_modulus", "dielectric_constant"]},
+    "Piezo Energy Harvesters": {"lower": ["piezo_max_dielectric"], "higher": ["piezo_max_dij"]},
+    "Piezoelectric Sensors / Actuators": {"higher": ["piezo_max_dij", "piezo_max_dielectric"]},
+    "Acousto-optic Hybrids": {"lower": ["piezo_max_dielectric"], "higher": ["piezo_max_dij"]},
+    "Low_Density_Structural_Aerospace": {"lower": ["density"], "higher": ["shear_modulus"]},
+    "Toxic_Free_Perovskite_Oxide": {"higher": ["band_gap", "bulk_modulus"]},
 }
 
 # --- Property name handling ---
