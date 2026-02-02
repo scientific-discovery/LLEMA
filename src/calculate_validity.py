@@ -547,8 +547,8 @@ def parse_cif_file(cif_path: str) -> Optional[Dict]:
 def check_constraints_for_task(cif_data: Dict, property_calculation_result: Dict, task_name: str) -> Dict:
     """
     Check constraints for a specific task.
-    Returns a dictionary with iteration, compound_formula, property_values, 
-    successful_constraints, failed_constraints, categorical_constraints, and materials_api_used.
+    Returns a dictionary with iteration, compound_formula, property_values (including categorical constraints), 
+    successful_constraints, failed_constraints, and materials_api_used.
     """
     property_values = property_calculation_result['property_values']
     
@@ -563,8 +563,7 @@ def check_constraints_for_task(cif_data: Dict, property_calculation_result: Dict
     failed = len(vios)
     successful = total_constraints - failed
     
-    # Check categorical constraints and include results
-    categorical_constraints = {}
+    # Check categorical constraints and include results in property_values
     spec = TASK_CONSTRAINTS.get(task_name, {})
     if spec.get("categorical"):
         sp = set()
@@ -580,40 +579,36 @@ def check_constraints_for_task(cif_data: Dict, property_calculation_result: Dict
         if cat.get("earth_abundant"):
             non_abundant = {"Au","Ag","Pt","Pd","Rh","Ir","Os","Ru","La","Ce","Pr","Nd","Pm","Sm","Eu","Gd","Tb","Dy","Ho","Er","Tm","Yb","Lu","Sc","Y","In","Ga","Ge","Te","Ta","Hf","Re"}
             has_non_abundant = any(e in sp for e in non_abundant)
-            categorical_constraints["earth_abundant"] = not has_non_abundant
+            task_property_values["earth_abundant"] = not has_non_abundant
         
         # Check non_toxic
         if cat.get("non_toxic"):
             toxic_elements = {"Hg","Cd","Pb","Tl","As","Be","Se"}
             has_toxic = any(e in sp for e in toxic_elements)
-            categorical_constraints["non_toxic"] = not has_toxic
+            task_property_values["non_toxic"] = not has_toxic
         
         # Check requires_any_element
         if cat.get("requires_any_element"):
             need_any = cat.get("requires_any_element", [])
             ok_any = any(any(el in sp for el in group) for group in need_any)
-            categorical_constraints["requires_any_element"] = ok_any
+            task_property_values["requires_any_element"] = ok_any
         
         # Check exclude_elements
         if cat.get("exclude_elements"):
             exclude_elements = cat.get("exclude_elements", [])
             has_excluded = any(e in sp for e in exclude_elements)
-            categorical_constraints["exclude_elements"] = not has_excluded
+            task_property_values["exclude_elements"] = not has_excluded
     
     # Create result dictionary
     result = {
         'iteration': cif_data.get('iteration', 0),
         'compound_formula': cif_data.get('formula', 'Unknown'),
-        'property_values': task_property_values,  # Only properties relevant to this task
+        'property_values': task_property_values,  # Includes both numeric properties and categorical constraints
         'task_name': task_name,
         'successful_constraints': successful,
         'failed_constraints': failed,
         'materials_api_used': property_calculation_result['materials_api_used']
     }
-    
-    # Add categorical constraints if any were checked
-    if categorical_constraints:
-        result['categorical_constraints'] = categorical_constraints
     
     return result
 
