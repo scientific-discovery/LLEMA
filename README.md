@@ -1,4 +1,4 @@
-# LLEMA: Evolutionary Search with LLMs for Multi-Objective Materials Discovery (ICLR 2026)
+# [ICLR 2026] LLEMA: Evolutionary Search with LLMs for Multi-Objective Materials Discovery
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) 
 [![arXiv](https://img.shields.io/badge/arXiv-2510.22503-b31b1b.svg)](https://arxiv.org/abs/2510.22503) 
