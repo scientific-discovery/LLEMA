@@ -1,9 +1,9 @@
-
-
 # LLEMA: Evolutionary Search with LLMs for Multi-Objective Materials Discovery (ICLR 2026)
-LLM-guided Evolution for MAterials Design
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![arXiv](https://img.shields.io/badge/arXiv-2510.22503-b31b1b.svg)](https://arxiv.org/abs/2510.22503) [![Hugging Face Paper](https://img.shields.io/badge/HuggingFace-Paper-yellow.svg)](https://huggingface.co/papers/2510.22503) [![Hugging Face Dataset](https://img.shields.io/badge/HuggingFace-Dataset-blue.svg)](https://huggingface.co/datasets/nikhilsa/LLEMABench)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) 
+[![arXiv](https://img.shields.io/badge/arXiv-2510.22503-b31b1b.svg)](https://arxiv.org/abs/2510.22503) 
+[![Hugging Face Paper](https://img.shields.io/badge/HuggingFace-Paper-yellow.svg)](https://huggingface.co/papers/2510.22503) 
+[![Hugging Face Dataset](https://img.shields.io/badge/HuggingFace-Dataset-blue.svg)](https://huggingface.co/datasets/nikhilsa/LLEMABench)
 
 Official implementation of [“LLEMA: Evolutionary Search with LLMs for Multi-Objective Materials Discovery”](https://arxiv.org/abs/2510.22503)
 
